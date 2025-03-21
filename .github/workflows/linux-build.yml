@@ -8,14 +8,16 @@ on:
 jobs:
   nix-build-and-release:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: "write"
+      contents: "write"
     steps:
     - uses: actions/checkout@v4
-    - uses: cachix/install-nix-action@v25
-      with:
-        github_access_token: ${{ secrets.GITHUB_TOKEN }}
-    - run: nix flake check
+    - uses: DeterminateSystems/nix-installer-action@main
+    - uses: DeterminateSystems/magic-nix-cache-action@main
+    - uses: DeterminateSystems/flake-checker-action@main
     - run: nix bundle --bundler github:NixOS/bundlers .#
-    - uses: softprops/action-gh-release@v1
+    - uses: softprops/action-gh-release@v2
       with:
         files: panimacs-arx
       env:
