@@ -181,8 +181,12 @@
               ln -sv ${pkgs.tree-sitter-grammars.tree-sitter-yang}/parser "$out/share/.emacs.d/tree-sitter/libtree-sitter-yang.so"
               ln -sv ${pkgs.tree-sitter-grammars.tree-sitter-zig}/parser "$out/share/.emacs.d/tree-sitter/libtree-sitter-zig.so"
 
-              makeWrapper ${emacs}/bin/emacs $out/bin/panimacs     \
+              makeWrapper ${emacs}/bin/emacs $out/bin/panimacs \
                 --add-flags "--init-directory=$out/share/.emacs.d/" \
+                --set XDG_DATA_HOME ${fonts} \
+                --set PATH "${pkgs.git}/bin/:$PATH"
+
+              makeWrapper ${emacs}/bin/emacsclient $out/bin/panimacsclient \
                 --set XDG_DATA_HOME ${fonts} \
                 --set PATH "${pkgs.git}/bin/:$PATH"
             '';
