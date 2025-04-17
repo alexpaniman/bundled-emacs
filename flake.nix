@@ -183,12 +183,10 @@
 
               makeWrapper ${emacs}/bin/emacs $out/bin/panimacs \
                 --add-flags "--init-directory=$out/share/.emacs.d/" \
-                --set XDG_DATA_HOME ${fonts} \
-                --set PATH "${pkgs.git}/bin/:$PATH"
+                --set XDG_DATA_HOME ${fonts}
 
               makeWrapper ${emacs}/bin/emacsclient $out/bin/panimacsclient \
-                --set XDG_DATA_HOME ${fonts} \
-                --set PATH "${pkgs.git}/bin/:$PATH"
+                --set XDG_DATA_HOME ${fonts}
             '';
           };
         };
